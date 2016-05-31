@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.suwonsmartapp.android4ki.listview.ListViewActivity;
+
 /**
  * Created by junsuk on 16. 5. 30..
  */
@@ -42,5 +44,9 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    public void listView(View view) {
+        startActivity(new Intent(this, ListViewActivity.class));
     }
 }

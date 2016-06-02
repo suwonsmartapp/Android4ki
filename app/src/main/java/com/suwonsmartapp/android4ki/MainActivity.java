@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.suwonsmartapp.android4ki.lifecycle.LifeCycleActivity;
 import com.suwonsmartapp.android4ki.listview.ListViewActivity;
 
 /**
@@ -48,5 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void listView(View view) {
         startActivity(new Intent(this, ListViewActivity.class));
+    }
+
+    public void lifeCycle(View view) {
+        startActivity(new Intent(this, LifeCycleActivity.class));
     }
 }

@@ -3,7 +3,7 @@ package com.suwonsmartapp.android4ki.listview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.suwonsmartapp.android4ki.R;
@@ -23,6 +23,7 @@ public class ListViewActivity extends AppCompatActivity {
     private static final String TAG = ListViewActivity.class.getSimpleName();
 
     private List<Contact> mData;
+    private GridView mGridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class ListViewActivity extends AppCompatActivity {
         mData = new ArrayList<>();
         mData.add(new Contact("http://suwonsmartapp.iptime.org/test/twoong/retrofit/Picture1.png", "test"));
 
-        final ListView listView = (ListView) findViewById(R.id.list_view);
+        mGridView = (GridView) findViewById(R.id.list_view);
 
         // retrofit 준비
         Retrofit retrofit = new Retrofit.Builder()
@@ -52,7 +53,7 @@ public class ListViewActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: " + data);
 
                 mData = data;
-                listView.setAdapter(new ContactAdapter(data));
+                mGridView.setAdapter(new ContactAdapter(data));
             }
 
             @Override
@@ -61,5 +62,21 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
 
+        Log.d(TAG, "onCreate: ");
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", mGridView.getFirstVisiblePosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        int position = savedInstanceState.getInt("position");
+        mGridView.setSelection(position);
     }
 }

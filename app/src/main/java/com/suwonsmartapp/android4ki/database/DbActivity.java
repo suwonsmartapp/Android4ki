@@ -51,5 +51,30 @@ public class DbActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.update_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // update
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, mTitle.getText().toString());
+                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SUBTITLE, mSubtitle.getText().toString());
+
+                String where = FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID + "=?";
+
+                int updatedRow = db.update(FeedReaderContract.FeedEntry.TABLE_NAME,
+                        values,
+                        where,
+                        new String[]{ mEntryId.getText().toString() });
+
+                if (updatedRow != 0) {
+                    Toast.makeText(DbActivity.this, "수정 되었습니다", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DbActivity.this, "수정 에러", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

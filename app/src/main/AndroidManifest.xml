@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".listview.ListViewActivity" />
         <activity android:name=".lifecycle.LifeCycleActivity" />
-        <activity android:name=".database.DbActivity"></activity>
+        <activity android:name=".database.DbActivity" />
     </application>
 
 </manifest>

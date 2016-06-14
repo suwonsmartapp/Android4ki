@@ -53,4 +53,15 @@
         android:layout_height="wrap_content"
         android:text="Delete" />
 
+    <Button
+        android:id="@+id/query_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="query" />
+
+    <TextView
+        android:id="@+id/query_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -24,6 +24,12 @@
         <activity android:name=".listview.ListViewActivity" />
         <activity android:name=".lifecycle.LifeCycleActivity" />
         <activity android:name=".database.DbActivity" />
+
+        <provider
+            android:name=".database.MyContentProvider"
+            android:authorities="com.suwonsmartap.android4ki.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

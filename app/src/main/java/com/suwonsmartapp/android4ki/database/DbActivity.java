@@ -29,7 +29,7 @@ public class DbActivity extends AppCompatActivity {
         mSubtitle = (EditText) findViewById(R.id.COLUMN_NAME_SUBTITLE);
 
         // 헬퍼 생성
-        mDbHelper = new FeedReaderDbHelper(this);
+        mDbHelper = FeedReaderDbHelper.getInstance(this);
 
         findViewById(R.id.insert_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +130,8 @@ public class DbActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.query_text);
                 textView.setText(stringBuilder);
 
-
+                // 반드시 닫아 줘야 함
+                cursor.close();
             }
         });
     }

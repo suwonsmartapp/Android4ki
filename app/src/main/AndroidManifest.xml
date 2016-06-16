@@ -27,9 +27,9 @@
 
         <provider
             android:name=".database.MyContentProvider"
-            android:authorities="com.suwonsmartap.android4ki.provider"
+            android:authorities="com.suwonsmartapp.android4ki.provider"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
     </application>
 
 </manifest>

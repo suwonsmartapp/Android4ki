@@ -13,9 +13,11 @@ public class MyContentProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher;
 
     public static final int ALL = 1;
-    public static final int ITEM = 2;
 
+    public static final int ITEM = 2;
     public static final String AUTHORITY = "com.suwonsmartapp.android4ki.provider";
+
+    public static final Uri URI = Uri.parse("content://" + AUTHORITY + "/" + FeedReaderContract.FeedEntry.TABLE_NAME);
 
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -38,9 +40,9 @@ public class MyContentProvider extends ContentProvider {
     public String getType(Uri uri) {
         switch (sUriMatcher.match(uri)) {
             case ALL:
-                return "vnd.android.cursor.dir/vnd.com.suwonsmartapp.android4ki.provider" + FeedReaderContract.FeedEntry.TABLE_NAME;
+                return "vnd.android.cursor.dir/vnd.com.suwonsmartapp.android4ki.provider." + FeedReaderContract.FeedEntry.TABLE_NAME;
             case ITEM:
-                return "vnd.android.cursor.item/vnd.com.suwonsmartapp.android4ki." + FeedReaderContract.FeedEntry.TABLE_NAME;
+                return "vnd.android.cursor.item/vnd.com.suwonsmartapp.android4ki.provider." + FeedReaderContract.FeedEntry.TABLE_NAME;
             default:
                 return null;
         }

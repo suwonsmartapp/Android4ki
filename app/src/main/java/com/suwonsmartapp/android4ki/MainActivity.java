@@ -11,6 +11,7 @@ import android.view.View;
 import com.suwonsmartapp.android4ki.database.DbActivity;
 import com.suwonsmartapp.android4ki.lifecycle.LifeCycleActivity;
 import com.suwonsmartapp.android4ki.listview.ListViewActivity;
+import com.suwonsmartapp.android4ki.service.MyService;
 
 /**
  * Created by junsuk on 16. 5. 30..
@@ -58,5 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void database(View view) {
         startActivity(new Intent(this, DbActivity.class));
+    }
+
+    public void service(View view) {
+        startService(new Intent(this, MyService.class));
     }
 }

@@ -30,6 +30,11 @@
             android:authorities="com.suwonsmartapp.android4ki.provider"
             android:enabled="true"
             android:exported="true" />
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,9 +1,14 @@
 package com.suwonsmartapp.android4ki.database;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.UiThread;
+import android.support.annotation.WorkerThread;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -12,12 +17,13 @@ import android.widget.Toast;
 
 import com.suwonsmartapp.android4ki.R;
 
-public class DbActivity extends AppCompatActivity {
+public class DbActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private FeedReaderDbHelper mDbHelper;
     private EditText mEntryId;
     private EditText mTitle;
     private EditText mSubtitle;
+    private MyCursorAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +35,8 @@ public class DbActivity extends AppCompatActivity {
         mSubtitle = (EditText) findViewById(R.id.COLUMN_NAME_SUBTITLE);
 
         ListView listView = (ListView) findViewById(R.id.query_list);
-        final MyCursorAdapter adapter = new MyCursorAdapter(this, null);
-        listView.setAdapter(adapter);
+        mAdapter = new MyCursorAdapter(this, null);
+        listView.setAdapter(mAdapter);
 
         // 헬퍼 생성
         mDbHelper = FeedReaderDbHelper.getInstance(this);
@@ -118,9 +124,34 @@ public class DbActivity extends AppCompatActivity {
 
                 if (cursor != null) {
 
-                    adapter.swapCursor(cursor);
+                    mAdapter.swapCursor(cursor);
                 }
             }
         });
+
+
+        // Loader 초기화 -> onCreateLoader 호출 됨
+        getLoaderManager().initLoader(0, null, this);
+
+    }
+
+    @WorkerThread
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // provider 를 통해서 query한 것을
+        // CursorLoader 만들어서 리턴
+        // 리턴 결과는 onLoadFinished 로 전달 됨
+        return new CursorLoader(this, MyContentProvider.URI, null, null, null, null);
+    }
+
+    @UiThread
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 }

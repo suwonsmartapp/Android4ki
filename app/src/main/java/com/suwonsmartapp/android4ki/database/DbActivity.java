@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.suwonsmartapp.android4ki.R;
@@ -27,6 +27,10 @@ public class DbActivity extends AppCompatActivity {
         mEntryId = (EditText) findViewById(R.id.COLUMN_NAME_ENTRY_ID);
         mTitle = (EditText) findViewById(R.id.COLUMN_NAME_TITLE);
         mSubtitle = (EditText) findViewById(R.id.COLUMN_NAME_SUBTITLE);
+
+        ListView listView = (ListView) findViewById(R.id.query_list);
+        final MyCursorAdapter adapter = new MyCursorAdapter(this, null);
+        listView.setAdapter(adapter);
 
         // 헬퍼 생성
         mDbHelper = FeedReaderDbHelper.getInstance(this);
@@ -113,22 +117,8 @@ public class DbActivity extends AppCompatActivity {
 //                cursor.moveToFirst();
 
                 if (cursor != null) {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    while (cursor.moveToNext()) {
-                        stringBuilder.append(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_ENTRY_ID)));
-                        stringBuilder.append(",");
-                        stringBuilder.append(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE)));
-                        stringBuilder.append(",");
-                        stringBuilder.append(cursor.getString(cursor.getColumnIndex(FeedReaderContract.FeedEntry.COLUMN_NAME_SUBTITLE)));
-                        stringBuilder.append("\n");
-                    }
 
-
-                    TextView textView = (TextView) findViewById(R.id.query_text);
-                    textView.setText(stringBuilder);
-
-                    // 반드시 닫아 줘야 함
-                    cursor.close();
+                    adapter.swapCursor(cursor);
                 }
             }
         });

@@ -2,6 +2,7 @@ package com.suwonsmartapp.android4ki.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -31,9 +32,22 @@ public class MyService extends Service {
         return START_NOT_STICKY;
     }
 
+
+    // Bind Service
+    private final IBinder mBinder = new MyBinder();
+
+    public class MyBinder extends Binder {
+        public MyService getService() {
+            return MyService.this;
+        }
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return mBinder;
+    }
+
+    public void showLog() {
+        Log.d(TAG, "showLog: 바인딩 잘 되었다");
     }
 }

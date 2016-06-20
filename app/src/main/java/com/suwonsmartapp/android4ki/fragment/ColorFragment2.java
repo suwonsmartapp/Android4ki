@@ -1,6 +1,5 @@
 package com.suwonsmartapp.android4ki.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,9 @@ import com.suwonsmartapp.android4ki.R;
  * Created by junsuk on 16. 6. 20..
  */
 public class ColorFragment2 extends Fragment implements View.OnClickListener {
+
+    private OnClickMyListener mListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,18 +26,32 @@ public class ColorFragment2 extends Fragment implements View.OnClickListener {
         return view;
     }
 
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnClickMyListener) {
+//            mListener = (OnClickMyListener) context;
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
+
+    public void setOnMyClickListener(OnClickMyListener listener) {
+        mListener = listener;
+    }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.red_button:
-                getView().setBackgroundColor(Color.RED);
-                break;
-            case R.id.green_button:
-                getView().setBackgroundColor(Color.GREEN);
-                break;
-            case R.id.blue_button:
-                getView().setBackgroundColor(Color.BLUE);
-                break;
+        if (mListener != null) {
+            mListener.onClick(v, getView());
         }
+    }
+
+    public interface OnClickMyListener {
+        void onClick(View clickedView, View colorChangeView);
     }
 }

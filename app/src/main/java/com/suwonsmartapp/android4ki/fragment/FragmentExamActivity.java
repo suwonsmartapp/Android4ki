@@ -1,3 +1,4 @@
+
 package com.suwonsmartapp.android4ki.fragment;
 
 import android.graphics.Color;
@@ -14,7 +15,8 @@ public class FragmentExamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_exam);
 
-        ColorFragment2 colorFragment2 = (ColorFragment2) getSupportFragmentManager().findFragmentById(R.id.color_frag);
+        final ColorFragment2 colorFragment2 = new ColorFragment2();
+
         colorFragment2.setOnMyClickListener(new ColorFragment2.OnClickMyListener() {
             @Override
             public void onClick(View clickedView, View colorChangeView) {
@@ -26,12 +28,15 @@ public class FragmentExamActivity extends AppCompatActivity {
                         colorChangeView.setBackgroundColor(Color.GREEN);
                         break;
                     case R.id.blue_button:
-                        colorChangeView.setBackgroundColor(Color.BLUE);
+                        getSupportFragmentManager().beginTransaction().remove(colorFragment2)
+                                .commit();
                         break;
                 }
             }
         });
 
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contents, colorFragment2)
+                .commit();
     }
 }

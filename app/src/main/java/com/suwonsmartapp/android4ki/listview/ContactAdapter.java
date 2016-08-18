@@ -6,12 +6,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.suwonsmartapp.android4ki.R;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by junsuk on 16. 5. 31..
@@ -46,7 +43,7 @@ public class ContactAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact_list, parent, false);
             holder = new ViewHolder();
-            holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_view);
+//            holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.image_view);
             holder.nameTextView = (TextView) convertView.findViewById(R.id.name_text);
             convertView.setTag(holder);
         } else {
@@ -55,14 +52,14 @@ public class ContactAdapter extends BaseAdapter {
 
         Contact contact = (Contact) getItem(position);
 
-        Glide.with(parent.getContext()).load(contact.getImageUri()).into(holder.circleImageView);
+//        Glide.with(parent.getContext()).load(contact.getImageUri()).into(holder.circleImageView);
         holder.nameTextView.setText(contact.getName());
 
         return convertView;
     }
 
     static class ViewHolder {
-        CircleImageView circleImageView;
+//        CircleImageView circleImageView;
         TextView nameTextView;
     }
 }

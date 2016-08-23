@@ -1,8 +1,7 @@
 package com.suwonsmartapp.android4ki.rx;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -25,27 +24,28 @@ public class RxExamActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.button).setOnClickListener(this);
     }
 
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            mTextView.setText((String)msg.obj);
-        }
-    };
-
     @Override
     public void onClick(View v) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                    Message msg = new Message();
-                    msg.obj = "변경 됨";
-                    mHandler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        new MyTask().execute();
+    }
+
+    class MyTask extends AsyncTask<Void, Void, String> {
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }).start();
+            return "변경 됨";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            mTextView.setText(s);
+        }
     }
 }

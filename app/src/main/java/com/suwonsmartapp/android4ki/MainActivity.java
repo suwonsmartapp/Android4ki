@@ -15,6 +15,7 @@ import com.suwonsmartapp.android4ki.database.DbActivity;
 import com.suwonsmartapp.android4ki.fragment.FragmentExamActivity;
 import com.suwonsmartapp.android4ki.lifecycle.LifeCycleActivity;
 import com.suwonsmartapp.android4ki.listview.ListViewActivity;
+import com.suwonsmartapp.android4ki.rx.RxExamActivity;
 import com.suwonsmartapp.android4ki.service.MyIntentService;
 import com.suwonsmartapp.android4ki.service.MyService;
 
@@ -109,5 +110,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void colorFragment(View view) {
         startActivity(new Intent(this, FragmentExamActivity.class));
+    }
+
+    public void rxjava(View view) {
+        startActivity(new Intent(this, RxExamActivity.class));
     }
 }

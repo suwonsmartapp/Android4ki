@@ -39,7 +39,8 @@
             android:name=".service.MyIntentService"
             android:exported="false" />
 
-        <activity android:name=".fragment.FragmentExamActivity"></activity>
+        <activity android:name=".fragment.FragmentExamActivity" />
+        <activity android:name=".rx.RxExamActivity"></activity>
     </application>
 
 </manifest>

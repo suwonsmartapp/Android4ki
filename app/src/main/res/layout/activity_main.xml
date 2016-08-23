@@ -12,6 +12,13 @@
         android:layout_height="150dp" />
 
     <Button
+        android:onClick="rxjava"
+        android:text="RxJava"
+        style="@style/MyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:onClick="email"
         android:text="버튼"
         style="@style/MyButton"
